@@ -10,7 +10,7 @@ import { messageSuccessLog } from '../../utils/messageLogs';
 import { sendTextMessageURL } from '../../config/whatsappApi';
 
 // 0 8 * * 1-5 --> String cron que executa todos os dias úteis às 08:00
-export const paymentsAccountJob = cron.schedule('* * * * * *', async () => {
+export const paymentsAccountJob = cron.schedule('0 8 * * 1-5', async () => {
   const contacts = await NotificationRepository.findContactsNotification('contas_pagar');
 
   if (contacts.length === 0) {
