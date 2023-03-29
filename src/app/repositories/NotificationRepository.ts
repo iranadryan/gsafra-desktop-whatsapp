@@ -1,5 +1,6 @@
 import database from '../../database';
 import { notificationsType } from '../../types/NotificationTypes';
+import { formatWhatsappNumber } from '../../utils/formatWhatsappNumber';
 
 class NotificationRepository {
   findContactsNotification(notification: notificationsType) {
@@ -17,11 +18,9 @@ class NotificationRepository {
           reject(err);
         }
 
-        resolve(result.map((contact) => (
-          '55' +
-          contact.WHATSAPP_NOTIFICACAO.slice(0, 2) +
-          contact.WHATSAPP_NOTIFICACAO.slice(3)
-        )));
+        resolve(result.map(
+          (contact) => formatWhatsappNumber(contact.WHATSAPP_NOTIFICACAO))
+        );
       });
     });
   }
