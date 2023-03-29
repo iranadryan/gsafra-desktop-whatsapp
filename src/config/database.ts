@@ -2,7 +2,7 @@ import Firebird from 'node-firebird';
 import fs from 'node:fs';
 import path from 'node:path';
 
-let databaseName = 'default';
+let databaseName = process.env.DATABASE_NAME || 'default';
 const dbPaths = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'dbPaths.json'), 'utf8')
 );
