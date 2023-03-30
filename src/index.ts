@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3002;
 app.use('/', express.static(path.resolve(__dirname, 'public')));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
-app.set('views', path.resolve(__dirname, 'app', 'views'));
+app.set('views', path.resolve(__dirname, '..', 'src', 'app', 'views'));
 
 app.use(express.json());
 app.use(cors);
