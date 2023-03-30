@@ -7,11 +7,17 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+loaderElement.addEventListener('animationend', (e) => {
+  if (e.animationName === 'fade-out') {
+    loaderElement.classList.value = 'overlay hide';
+  }
+});
+
 function isLoading(isLoading) {
   if (isLoading) {
-    loaderElement.classList.remove('hide');
+    loaderElement.classList.value = 'overlay is-opening';
   } else {
-    loaderElement.classList.add('hide');
+    loaderElement.classList.value = 'overlay is-leaving';
   }
 }
 

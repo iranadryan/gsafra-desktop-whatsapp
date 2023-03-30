@@ -4,7 +4,7 @@ import axios from 'axios';
 const router = Router();
 
 router.get('/', async (request, response) => {
-  await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
+  // await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
 
   response.render('index');
 });
