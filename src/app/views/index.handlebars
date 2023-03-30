@@ -1,0 +1,41 @@
+<div class="app">
+  <div class="left-side">
+    <h1>
+      <img src="images/qrcode.svg" />
+      Escaneie o Código ao Lado
+    </h1>
+    <p>
+      Para conectar basta ler este código QR com a mesma função que se conecta
+      ao Whatsapp Web.
+    </p>
+    <small>
+      OBS<sub>1</sub>: não funcione gere o código novamente, ele pode ter
+      expirado.
+    </small>
+    <small>
+      OBS<sub>2</sub>: quando seu celular estiver conectado corretamente feche
+      esta página
+    </small>
+    <button class="refresh-button">
+      <img src="images/redo.svg" />
+      Gerar Novamente
+    </button>
+  </div>
+  <div class="qrcode">
+    <div id="loader-root">
+      <div class="overlay">
+        <svg class="spinner" viewBox="0 0 50 50">
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+          ></circle>
+        </svg>
+      </div>
+    </div>
+    <img src="images/placeholder.png" />
+  </div>
+</div>

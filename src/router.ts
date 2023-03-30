@@ -1,16 +1,18 @@
 import { Router } from 'express';
-import database from './database';
+import axios from 'axios';
 
 const router = Router();
 
-router.get('/', (request, response) => {
-  database.query(`
-    select * from ciclo_producao
-    where status = 1
-    order by nome
-  `, (err, safras) => {
-    response.json(safras);
-  });
+router.get('/', async (request, response) => {
+  await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
+
+  response.render('index');
+});
+
+router.get('/qrcode', async (request, response) => {
+  const { data } = await axios('http://localhost:3333/instance/qrbase64?key=gsafra');
+
+  response.json(data);
 });
 
 export default router;

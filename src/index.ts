@@ -1,6 +1,8 @@
 import express from 'express';
 import chalk from 'chalk';
 import figlet from 'figlet';
+import path from 'node:path';
+import { engine } from 'express-handlebars';
 
 import router from './router';
 import cors from './middlewares/cors';
@@ -11,6 +13,11 @@ import { paymentsAccountJob } from './app/jobs/FinancialJob';
 
 const app = express();
 const PORT = process.env.PORT || 3002;
+
+app.use('/', express.static(path.resolve(__dirname, 'public')));
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', path.resolve(__dirname, 'app', 'views'));
 
 app.use(express.json());
 app.use(cors);
