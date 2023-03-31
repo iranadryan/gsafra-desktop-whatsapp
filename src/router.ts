@@ -11,6 +11,8 @@ router.get('/', async (request, response) => {
       return response.redirect('/connected');
     }
 
+    await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
+
     return response.render('index');
   } catch {
     await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
@@ -34,21 +36,30 @@ router.get('/disconnect', async (request, response) => {
     method: 'delete',
     url: 'http://localhost:3333/instance/logout?key=gsafra'
   });
+  await axios({
+    method: 'delete',
+    url: 'http://localhost:3333/instance/delete?key=gsafra'
+  });
 
   response.sendStatus(204);
 });
 
 router.get('/test-whatsapp', async (request, response) => {
-  await axios({
-    method: 'post',
-    url: 'http://localhost:3333/message/text?key=gsafra',
-    data: {
-      id: '559180589159',
-      message: 'Mensagem de teste'
-    }
-  });
+  try {
+    await axios({
+      method: 'post',
+      url: 'http://localhost:3333/message/text?key=gsafra',
+      data: {
+        id: '559180589159',
+        message: 'Mensagem de teste'
+      }
+    });
 
-  response.json({ message: 'Mensagem enviada com sucesso' });
+    response.json({ message: 'Mensagem enviada com sucesso' });
+  } catch {
+    response.json({ message: 'Mensagem não enviada' });
+  }
+
 });
 
 export default router;
