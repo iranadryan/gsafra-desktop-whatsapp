@@ -14,7 +14,7 @@ import { paymentsAccountJob } from './app/jobs/FinancialJob';
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-app.use('/', express.static(path.resolve(__dirname, 'public')));
+app.use('/', express.static(path.resolve(__dirname, '..', 'src', 'public')));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.resolve(__dirname, '..', 'src', 'app', 'views'));
