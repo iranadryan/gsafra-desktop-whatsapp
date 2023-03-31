@@ -15,4 +15,17 @@ router.get('/qrcode', async (request, response) => {
   response.json(data);
 });
 
+router.get('/test-whatsapp', async (request, response) => {
+  await axios({
+    method: 'post',
+    url: 'http://localhost:3333/message/text?key=gsafra',
+    data: {
+      id: '559180589159',
+      message: 'Mensagem de teste'
+    }
+  });
+
+  response.json({ message: 'Mensagem enviada com sucesso' });
+});
+
 export default router;
