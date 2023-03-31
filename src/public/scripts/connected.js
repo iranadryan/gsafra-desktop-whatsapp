@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 const loaderElement = document.querySelector('#loader-root .overlay');
-const qrcodeElement = document.querySelector('.app .qrcode img');
-const refreshButtonElement = document.querySelector('.app .left-side .refresh-button');
+const disconnectButtonElement = document.querySelector('.app .left-side .disconnect-button');
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -21,19 +20,15 @@ function isLoading(isLoading) {
   }
 }
 
-async function loadQrcode() {
+async function disconnect() {
   isLoading(true);
 
+  await axios.get('/disconnect');
   await delay(1000);
-
-  const { data } = await axios.get('/qrcode');
-
-  qrcodeElement.setAttribute('src', data.qrcode);
   isLoading(false);
+  window.location.href = '/';
 }
 
-refreshButtonElement.addEventListener('click', async () => {
-  await loadQrcode();
+disconnectButtonElement.addEventListener('click', () => {
+  disconnect();
 });
-
-loadQrcode();

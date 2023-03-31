@@ -48,6 +48,10 @@ button:active {
   border-radius: 8px;
 }
 
+.app.connected .left-side {
+  width: 420px;
+}
+
 .app .left-side {
   width: 380px;
 }
@@ -75,6 +79,19 @@ button:active {
 
 .app .left-side .refresh-button {
   margin-top: 24px;
+}
+
+.app .left-side .disconnect-button {
+  margin-top: 24px;
+  background: #FF5555;
+}
+
+.app .left-side .disconnect-button:hover {
+  background: #E94040;
+}
+
+.app .left-side .disconnect-button:active {
+  background: #BF2D2D;
 }
 
 .app .qrcode {
