@@ -1,21 +1,29 @@
 import { Router } from 'express';
 import axios from 'axios';
+import {
+  deleteInstanceURL,
+  generateQrcodeURL,
+  initInstanceURL,
+  instanceInfoURL,
+  logoutInstanceURL,
+  sendTextMessageURL
+} from './config/whatsappApi';
 
 const router = Router();
 
 router.get('/', async (request, response) => {
   try {
-    const { data: instanceInfo } = await axios('http://localhost:3333/instance/info?key=gsafra');
+    const { data: instanceInfo } = await axios(instanceInfoURL);
 
     if (instanceInfo.instance_data.phone_connected) {
       return response.redirect('/connected');
     }
 
-    await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
+    await axios(initInstanceURL);
 
     return response.render('index');
   } catch {
-    await axios('http://localhost:3333/instance/init?key=gsafra&token=COYOTE_DEV');
+    await axios(initInstanceURL);
 
     return response.render('index');
   }
@@ -26,7 +34,7 @@ router.get('/connected', (request, response) => {
 });
 
 router.get('/qrcode', async (request, response) => {
-  const { data } = await axios('http://localhost:3333/instance/qrbase64?key=gsafra');
+  const { data } = await axios(generateQrcodeURL);
 
   response.json(data);
 });
@@ -34,11 +42,11 @@ router.get('/qrcode', async (request, response) => {
 router.get('/disconnect', async (request, response) => {
   await axios({
     method: 'delete',
-    url: 'http://localhost:3333/instance/logout?key=gsafra'
+    url: logoutInstanceURL
   });
   await axios({
     method: 'delete',
-    url: 'http://localhost:3333/instance/delete?key=gsafra'
+    url: deleteInstanceURL
   });
 
   response.sendStatus(204);
@@ -48,7 +56,7 @@ router.get('/test-whatsapp', async (request, response) => {
   try {
     await axios({
       method: 'post',
-      url: 'http://localhost:3333/message/text?key=gsafra',
+      url: sendTextMessageURL,
       data: {
         id: '559180589159',
         message: 'Mensagem de teste'
