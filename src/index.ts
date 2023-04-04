@@ -9,7 +9,10 @@ import cors from './middlewares/cors';
 import updateDatabaseName from './middlewares/updateDatabaseName';
 import errorHandler from './middlewares/errorHandler';
 
-import { paymentsAccountJob } from './app/jobs/FinancialJob';
+import {
+  paymentsAccountJob,
+  receivablesAccountJob
+} from './app/jobs/FinancialJob';
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -26,6 +29,7 @@ app.use(router);
 app.use(errorHandler);
 
 paymentsAccountJob.start();
+receivablesAccountJob.start();
 
 app.listen(PORT, () => {
   console.log('\n');

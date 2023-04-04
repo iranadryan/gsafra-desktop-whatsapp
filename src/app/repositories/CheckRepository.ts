@@ -4,7 +4,7 @@ import CheckMapper from './mappers/CheckMapper';
 import { ITodayChecksDomain } from '../../types/CheckTypes';
 
 class CheckRepository {
-  findTodayChecks() {
+  findTodayChecks(type: 'R' | 'P') {
     return new Promise<ITodayChecksDomain[]>((resolve, reject) => {
       database.query(`
       select
@@ -14,6 +14,7 @@ class CheckRepository {
       inner join pessoa on pessoa.id = cheque.id_pessoa
       where cheque.situacao = 'A'
       and cheque.data_vencimento = '${moment().format('MM/DD/YYYY')}'
+      and cheque.tipo = '${type === 'R' ? 'R' : 'E'}'
       group by pessoa.razao_social
       order by valor desc
       `, (err, result) => {

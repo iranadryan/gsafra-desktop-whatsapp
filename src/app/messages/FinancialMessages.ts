@@ -9,6 +9,11 @@ interface IPaymentsAccountArgs {
   creditCardTotal: number;
 }
 
+interface IReceivablesAccountArgs {
+  receivables: ITodayPaymentsDomain[];
+  checks: ITodayChecksDomain[];
+}
+
 export const paymentsAccountMessage = ({
   payments,
   checks,
@@ -32,4 +37,23 @@ ${formatCurrency(check.value)}
 _Fatura total com o vencimento na data de hoje:  *${moment().format('DD/MM/YYYY')}*_
 
 ${formatCurrency(creditCardTotal)}
+`.trim();
+
+export const receivablesAccountMessage = ({
+  receivables,
+  checks,
+}: IReceivablesAccountArgs) => `
+*📝 CONTAS A RECEBER*
+_Contas a receber com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_
+${receivables.map((payment) => (`
+*${payment.supplierName}*
+${formatCurrency(payment.value)}
+`)).join('').trimEnd()}${receivables.length === 0 ? '\n_*NENHUMA CONTA A RECEBER*_' : ''}
+
+*🧾 CHEQUES EMITIDOS*
+_Cheques com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_
+${checks.map((check) => (`
+*${check.supplierName}*
+${formatCurrency(check.value)}
+`)).join('').trimEnd()}${checks.length === 0 ? '\n_*NENHUM CHEQUE EMITIDO*_' : ''}
 `.trim();

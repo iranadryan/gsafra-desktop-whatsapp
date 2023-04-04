@@ -4,7 +4,7 @@ import FinancialMapper from './mappers/FinancialMapper';
 import { ITodayPaymentsDomain } from '../../types/FinancialTypes';
 
 class FinancialRepository {
-  findTodayPayments() {
+  findTodayFinancial(type: 'R' | 'P') {
     return new Promise<ITodayPaymentsDomain[]>((resolve, reject) => {
       database.query(`
       select
@@ -21,6 +21,7 @@ class FinancialRepository {
       inner join pessoa on pessoa.id = crp_m.id_pessoa
       where conta_receber_pagar.situacao = 'A'
       and conta_receber_pagar.data_vencimento = '${moment().format('MM/DD/YYYY')}'
+      and crp_m.tipo = ${type === 'R' ? 1 : 2}
       group by pessoa.razao_social
       order by valor desc
       `, (err, result) => {

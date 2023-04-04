@@ -5,7 +5,7 @@ import FinancialRepository from '../repositories/FinancialRepository';
 import CreditCardRepository from '../repositories/CreditCardRepository';
 import CheckRepository from '../repositories/CheckRepository';
 import NotificationRepository from '../repositories/NotificationRepository';
-import { paymentsAccountMessage } from '../messages/FinancialMessages';
+import { paymentsAccountMessage, receivablesAccountMessage } from '../messages/FinancialMessages';
 import { messageSuccessLog } from '../../utils/messageLogs';
 import { sendTextMessageURL } from '../../config/whatsappApi';
 
@@ -17,8 +17,8 @@ export const paymentsAccountJob = cron.schedule('0 8 * * 1-5', async () => {
     return;
   }
 
-  const payments = await FinancialRepository.findTodayPayments();
-  const checks = await CheckRepository.findTodayChecks();
+  const payments = await FinancialRepository.findTodayFinancial('P');
+  const checks = await CheckRepository.findTodayChecks('P');
   const creditCardTotal = await CreditCardRepository.findTodayTotal();
 
   const message = paymentsAccountMessage({
@@ -39,6 +39,37 @@ export const paymentsAccountJob = cron.schedule('0 8 * * 1-5', async () => {
   }
 
   messageSuccessLog('Contas a Pagar', contacts);
+}, {
+  scheduled: false
+});
+
+export const receivablesAccountJob = cron.schedule('0 8 * * 1-5', async () => {
+  const contacts = await NotificationRepository.findContactsNotification('contas_receber');
+
+  if (contacts.length === 0) {
+    return;
+  }
+
+  const receivables = await FinancialRepository.findTodayFinancial('R');
+  const checks = await CheckRepository.findTodayChecks('R');
+
+  const message = receivablesAccountMessage({
+    receivables,
+    checks
+  });
+
+  for (const contact of contacts) {
+    await axios({
+      method: 'post',
+      url: sendTextMessageURL,
+      data: {
+        id: contact,
+        message
+      }
+    });
+  }
+
+  messageSuccessLog('Contas a Receber', contacts);
 }, {
   scheduled: false
 });
