@@ -1,5 +1,5 @@
-const baseURL = process.env.WHATSAPP_API_BASE_URL || 'https://whatsapp-nodejs-api.onrender.com';
-const instanceKey = process.env.WHATSAPP_API_INSTANCE || 'iran_teste';
+const baseURL = process.env.WHATSAPP_API_BASE_URL || 'http://44.203.115.176:3333';
+const instanceKey = process.env.WHATSAPP_API_INSTANCE || 'gsafra_server';
 
 export const sendTextMessageURL = `${baseURL}/message/text?key=${instanceKey}`;
 
