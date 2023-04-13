@@ -9,10 +9,7 @@ import cors from './middlewares/cors';
 import updateDatabaseName from './middlewares/updateDatabaseName';
 import errorHandler from './middlewares/errorHandler';
 
-import {
-  paymentsAccountJob,
-  receivablesAccountJob
-} from './app/jobs/FinancialJob';
+import { morningJob } from './app/jobs';
 
 import './lib/socket';
 
@@ -30,8 +27,7 @@ app.use(updateDatabaseName);
 app.use(router);
 app.use(errorHandler);
 
-paymentsAccountJob.start();
-receivablesAccountJob.start();
+morningJob.start();
 
 app.listen(PORT, () => {
   console.log('\n');
