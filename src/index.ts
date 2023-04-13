@@ -14,6 +14,8 @@ import {
   receivablesAccountJob
 } from './app/jobs/FinancialJob';
 
+import './lib/socket';
+
 const app = express();
 const PORT = process.env.PORT || 3002;
 

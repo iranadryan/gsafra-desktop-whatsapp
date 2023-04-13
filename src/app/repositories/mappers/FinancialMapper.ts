@@ -1,15 +1,15 @@
 import {
-  ITodayPaymentsPersistence,
-  ITodayPaymentsDomain
+  IPaymentsPersistence,
+  IPaymentsDomain
 } from '../../../types/FinancialTypes';
 
 class FinancialMapper {
-  toTodayPaymentsDomain(
-    persistence: ITodayPaymentsPersistence
-  ): ITodayPaymentsDomain {
+  toPaymentsDomain(
+    persistence: IPaymentsPersistence
+  ): IPaymentsDomain {
     return {
       value: persistence.VALOR,
-      supplierName: persistence.RAZAO_SOCIAL
+      supplierName: persistence.RAZAO_SOCIAL.trim(),
     };
   }
 }

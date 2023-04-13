@@ -1,9 +1,9 @@
-export interface ITodayPaymentsPersistence {
+export interface IPaymentsPersistence {
   VALOR: number;
   RAZAO_SOCIAL: string;
 }
 
-export interface ITodayPaymentsDomain {
+export interface IPaymentsDomain {
   value: number;
   supplierName: string;
 }

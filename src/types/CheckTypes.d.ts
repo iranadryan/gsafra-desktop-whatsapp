@@ -1,9 +1,9 @@
-export interface ITodayChecksPersistence {
+export interface IChecksPersistence {
   VALOR: number;
   RAZAO_SOCIAL: string;
 }
 
-export interface ITodayChecksDomain {
+export interface IChecksDomain {
   value: number;
   supplierName: string;
 }

@@ -1,12 +1,12 @@
 import {
-  ITodayChecksPersistence,
-  ITodayChecksDomain
+  IChecksPersistence,
+  IChecksDomain
 } from '../../../types/CheckTypes';
 
 class CheckMapper {
-  toTodayChecksDomain(
-    persistence: ITodayChecksPersistence
-  ): ITodayChecksDomain {
+  toChecksDomain(
+    persistence: IChecksPersistence
+  ): IChecksDomain {
     return {
       value: persistence.VALOR,
       supplierName: persistence.RAZAO_SOCIAL
