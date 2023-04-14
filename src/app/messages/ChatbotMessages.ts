@@ -28,7 +28,7 @@ Até a próxima 👋
 `.trim();
 
 export const mainMenuMessage = (modulesPermitted: string[]) => `
-Qual módulo desa acessar?
+Qual módulo deseja acessar?
 
 *1 - _Financeiro${modulesPermitted.includes('FINANCEIRO') ? '' : ' 🔒'}_*
 *2 - _Agricultura${modulesPermitted.includes('AGRICULTURA') ? '' : ' 🔒'}_*
