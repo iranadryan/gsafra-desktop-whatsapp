@@ -8,7 +8,8 @@ import {
 import { parseWhatsappNumber } from '../utils/parseWhatsappNumber';
 
 export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-  'https://gsafra-chatbot-server.onrender.com'
+  // 'https://gsafra-chatbot-server.onrender.com'
+  'http://44.203.115.176:3001'
   // 'http://localhost:3000'
 );
 

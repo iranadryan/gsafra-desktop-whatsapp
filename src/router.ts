@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { response, Router } from 'express';
 import axios from 'axios';
 import {
   deleteInstanceURL,
@@ -8,6 +8,7 @@ import {
   logoutInstanceURL,
   sendTextMessageURL
 } from './config/whatsappApi';
+import { socket } from './lib/socket';
 
 const router = Router();
 
@@ -27,6 +28,12 @@ router.get('/', async (request, response) => {
 
     return response.render('index');
   }
+});
+
+router.get('/test-socket', (request, response) => {
+  socket.emit('testCommunication', 'test');
+
+  response.sendStatus(200);
 });
 
 router.get('/connected', (request, response) => {
