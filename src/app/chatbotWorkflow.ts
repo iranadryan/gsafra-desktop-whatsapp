@@ -411,7 +411,7 @@ export async function chatbotWorkflow({
     if (!crop) {
       return await sendTextMessage(
         number,
-        'Por favor selecione uma safra da lista acima 😔'
+        'Por favor selecione uma cultura da lista acima 😃'
       );
     }
 
@@ -439,7 +439,7 @@ export async function chatbotWorkflow({
     if (!crop) {
       return await sendTextMessage(
         number,
-        'Por favor selecione uma safra da lista acima 😃'
+        'Por favor selecione uma cultura da lista acima 😃'
       );
     }
 
