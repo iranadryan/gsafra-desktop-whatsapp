@@ -28,7 +28,7 @@ socket.on('newUser', async (number) => {
   socket.emit('newUserResponse', {
     number,
     canResponse,
-    clientName: 'IRAN ADRYAN'
+    clientName: process.env.CLIENT_NAME || 'NOME DA EMPRESA'
   });
 });
 
