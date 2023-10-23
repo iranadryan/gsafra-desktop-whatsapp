@@ -35,14 +35,14 @@ export const paymentsAccountMessage = ({
   creditCardTotal
 }: IPaymentsAccountArgs) => `
 *📝 CONTAS A PAGAR*
-_Contas a pagar com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_
+${moment().weekday() !== 1 ? `_Contas a pagar com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_` : `_Contas a pagar com vencimento de sábado à hoje: *${moment().subtract(2, 'day').format('DD/MM/YYYY')} - ${moment().subtract(1, 'day').format('DD/MM/YYYY')}*_`}
 ${payments.map((payment) => (`
 *${payment.supplierName}*
 ${formatCurrency(payment.value)}
 `)).join('').trimEnd()}${payments.length === 0 ? '\n_*NENHUMA CONTA A PAGAR*_' : ''}
 
 *🧾 CHEQUES A COMPENSAR*
-_Cheques com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_
+${moment().weekday() !== 1 ? `_Cheques com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_` : `_Cheques com vencimento de sábado à hoje: *${moment().subtract(2, 'day').format('DD/MM/YYYY')} - ${moment().subtract(1, 'day').format('DD/MM/YYYY')}*_`}
 ${checks.map((check) => (`
 *${check.supplierName}*
 ${formatCurrency(check.value)}
@@ -86,14 +86,14 @@ export const receivablesAccountMessage = ({
   checks,
 }: IReceivablesAccountArgs) => `
 *📝 CONTAS A RECEBER*
-_Contas a receber com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_
+${moment().weekday() !== 1 ? `_Contas a receber com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_` : `_Contas a receber com vencimento de sábado à hoje: *${moment().subtract(2, 'day').format('DD/MM/YYYY')} - ${moment().subtract(1, 'day').format('DD/MM/YYYY')}*_`}
 ${receivables.map((payment) => (`
 *${payment.supplierName}*
 ${formatCurrency(payment.value)}
 `)).join('').trimEnd()}${receivables.length === 0 ? '\n_*NENHUMA CONTA A RECEBER*_' : ''}
 
 *🧾 CHEQUES EMITIDOS*
-_Cheques com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_
+${moment().weekday() !== 1 ? `_Cheques com o vencimento na data de hoje: *${moment().format('DD/MM/YYYY')}*_` : `_Cheques com vencimento de sábado à hoje: *${moment().subtract(2, 'day').format('DD/MM/YYYY')} - ${moment().subtract(1, 'day').format('DD/MM/YYYY')}*_`}
 ${checks.map((check) => (`
 *${check.supplierName}*
 ${formatCurrency(check.value)}

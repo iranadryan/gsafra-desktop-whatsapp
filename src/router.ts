@@ -9,6 +9,7 @@ import {
   sendTextMessageURL
 } from './config/whatsappApi';
 import { socket } from './lib/socket';
+import FinancialMessageController from './app/controllers/FinancialMessageController';
 
 const router = Router();
 
@@ -61,14 +62,16 @@ router.get('/disconnect', async (request, response) => {
 
 router.get('/test-whatsapp', async (request, response) => {
   try {
-    await axios({
-      method: 'post',
-      url: sendTextMessageURL,
-      data: {
-        id: '559180589159',
-        message: 'Mensagem de teste'
-      }
-    });
+    // await axios({
+    //   method: 'post',
+    //   url: sendTextMessageURL,
+    //   data: {
+    //     id: '559180589159',
+    //     message: 'Mensagem de teste'
+    //   }
+    // });
+    await FinancialMessageController.sendPaymentsAccountMessage();
+    await FinancialMessageController.sendReceivablesAccountMessage();
 
     response.json({ message: 'Mensagem enviada com sucesso' });
   } catch {

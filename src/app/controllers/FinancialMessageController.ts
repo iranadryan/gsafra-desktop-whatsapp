@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { messageSuccessLog } from '../../utils/messageLogs';
 import { sendTextMessage } from '../../utils/sendTextMessage';
 import {
@@ -22,10 +23,21 @@ class FinancialMessageController {
     const payments = await FinancialRepository.findTodayFinancial('P');
     const checks = await CheckRepository.findTodayChecks('P');
     const creditCardTotal = await CreditCardRepository.findTodayTotal();
+    const weekendPayments = moment().weekday() === 1 ? await FinancialRepository.findPeriodFinancial('P', moment().subtract(2, 'day').toDate(), moment().subtract(1, 'day').toDate()) : [];
+    const weekendChecks = moment().weekday() === 1 ? await CheckRepository.findPeriodChecks('P', moment().subtract(2, 'day').toDate(), moment().subtract(1, 'day').toDate()) : [];
+
+    if (
+      payments.length === 0
+      && checks.length === 0
+      && weekendPayments.length === 0
+      && weekendChecks.length === 0
+    ) {
+      return;
+    }
 
     const message = paymentsAccountMessage({
-      payments,
-      checks,
+      payments: [...weekendPayments, ...payments],
+      checks: [...weekendChecks, ...checks],
       creditCardTotal,
     });
 
@@ -47,10 +59,21 @@ class FinancialMessageController {
 
     const receivables = await FinancialRepository.findTodayFinancial('R');
     const checks = await CheckRepository.findTodayChecks('R');
+    const weekendReceivables = moment().weekday() === 1 ? await FinancialRepository.findPeriodFinancial('R', moment().subtract(2, 'day').toDate(), moment().subtract(1, 'day').toDate()) : [];
+    const weekendChecks = moment().weekday() === 1 ? await CheckRepository.findPeriodChecks('R', moment().subtract(2, 'day').toDate(), moment().subtract(1, 'day').toDate()) : [];
+
+    if (
+      receivables.length === 0
+      && checks.length === 0
+      && weekendReceivables.length === 0
+      && weekendChecks.length === 0
+    ) {
+      return;
+    }
 
     const message = receivablesAccountMessage({
-      receivables,
-      checks,
+      receivables: [...weekendReceivables, ...receivables],
+      checks: [...weekendChecks, ...checks],
     });
 
     for (const contact of contacts) {
