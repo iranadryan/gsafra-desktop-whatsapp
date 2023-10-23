@@ -31,6 +31,7 @@ class FinancialMessageController {
       && checks.length === 0
       && weekendPayments.length === 0
       && weekendChecks.length === 0
+      && creditCardTotal === 0
     ) {
       return;
     }
